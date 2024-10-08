@@ -1,7 +1,7 @@
 services:
   fritzconnection:
     build: . 
-    image: ghcr.io/maystar/fritzpublicconnection/fritzconnection:latest 
+    image: ghcr.io/maystar/fritzpublicconnection/fritzconnection:1 
     secrets:
       - user
       - password

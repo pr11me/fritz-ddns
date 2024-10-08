@@ -31,7 +31,7 @@ jobs:
           else
             TAG=latest
           fi
-          docker build -t ghcr.io/${{ github.repository }}:${TAG} .
+          docker build -t ghcr.io/${{ github.repository }}/fritzconnection:${TAG} .
 
       - name: Push the Docker image
         run: |
@@ -40,4 +40,4 @@ jobs:
           else
             TAG=latest
           fi
-          docker push ghcr.io/${{ github.repository }}:${TAG}
+          docker push ghcr.io/${{ github.repository }}/fritzconnection:${TAG}
