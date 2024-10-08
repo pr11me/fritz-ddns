@@ -3,7 +3,9 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main 
+      - main
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -24,8 +26,18 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/fritzconnection .
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG=${GITHUB_REF#refs/tags/}  
+          else
+            TAG=latest
+          fi
+          docker build -t ghcr.io/${{ github.repository }}:${TAG} .
 
       - name: Push the Docker image
         run: |
-          docker push ghcr.io/${{ github.repository }}/fritzconnection
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG=${GITHUB_REF#refs/tags/}  
+          else
+            TAG=latest
+          fi
+          docker push ghcr.io/${{ github.repository }}:${TAG}
