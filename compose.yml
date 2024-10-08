@@ -1,0 +1,16 @@
+services:
+  fritzconnection:
+    build: . 
+    image: fritzconnection:latest 
+    secrets:
+      - user
+      - password
+    volumes:
+      - ./PrintPublicIpAdress.py:/PrintPublicIpAdress.py 
+      - ./out/:/out/:rw
+    entrypoint: [ "python", "/PrintPublicIpAdress.py" ]
+secrets:
+  user:
+    file: ./fritzbox_user
+  password:
+    file: ./fritzbox_password
