@@ -6,9 +6,7 @@ services:
       - user
       - password
     volumes:
-      - ./GetPublicIpAdress.py:/GetPublicIpAdress.py 
       - ./out/:/out/:rw
-    entrypoint: [ "python", "/GetPublicIpAdress.py" ]
 secrets:
   user:
     file: ./fritzbox_user
