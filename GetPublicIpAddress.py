@@ -2,9 +2,12 @@ import os
 
 from fritzconnection import FritzConnection
 
-with open('/run/secrets/user', 'r', encoding='utf-8') as userFile:
+userFile=os.getenv('FRITZBOX_USER_FILE', '/run/secrets/user')
+passwordFile=os.getenv('FRITZBOX_PASSWORD_FILE', '/run/secrets/password')
+
+with open(userFile, 'r', encoding='utf-8') as userFile:
     user = userFile.read()
-with open('/run/secrets/password', 'r', encoding='utf-8') as passwordFile:
+with open(passwordFile, 'r', encoding='utf-8') as passwordFile:
     password = passwordFile.read()
 
 address=os.getenv('FRITZBOX_ADDRESS', 'fritz.box')

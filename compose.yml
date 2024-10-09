@@ -5,6 +5,11 @@ services:
     secrets:
       - user
       - password
+    environment:
+      FRITZBOX_USER_FILE: /run/secrets/user
+      FRITZBOX_PASSWORD_FILE: /run/secrets/password
+      FRITZBOX_ADDRESS: fritz.box
+      PUBLIC_ADDRESS_FILE: /out/public_address
     volumes:
       - ./out/:/out/:rw
 secrets:
