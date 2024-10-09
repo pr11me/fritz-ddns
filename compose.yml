@@ -10,6 +10,13 @@ services:
       FRITZBOX_PASSWORD_FILE: /run/secrets/password
       FRITZBOX_ADDRESS: fritz.box
       PUBLIC_ADDRESS_FILE: /out/public_address
+      OUTPUT_PREFIX: |- 
+        http:
+          middlewares:
+            ownip-allowlist:
+              ipAllowList: 
+                sourceRange: 
+
     volumes:
       - ./out/:/out/:rw
 secrets:
