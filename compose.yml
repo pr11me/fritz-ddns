@@ -10,6 +10,7 @@ services:
       FRITZBOX_PASSWORD_FILE: /run/secrets/password
       FRITZBOX_ADDRESS: fritz.box
       PUBLIC_ADDRESS_FILE: /out/public_address
+      INTERVALL: 20
       OUTPUT_PREFIX: |- 
         http:
           middlewares:

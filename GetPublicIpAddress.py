@@ -1,4 +1,5 @@
 import os 
+import time
 
 from fritzconnection import FritzConnection
 
@@ -13,11 +14,19 @@ with open(passwordFile, 'r', encoding='utf-8') as passwordFile:
 address=os.getenv('FRITZBOX_ADDRESS', 'fritz.box')
 file=os.getenv('PUBLIC_ADDRESS_FILE', '/out/public_address')
 outputPrefix=os.getenv('OUTPUT_PREFIX', '')
+intervall=int(os.getenv('INTERVALL', '300'))
 
-fc = FritzConnection(address=address, user=user, password=password)
-external_ip = fc.call_action('WANIPConn1', 'GetExternalIPAddress')
+last_external_ip = None
 
-with open(file, 'w', encoding='utf-8') as output:
-    output.write(f"{outputPrefix}{external_ip['NewExternalIPAddress']}")
+while True:
+    fc = FritzConnection(address=address, user=user, password=password)
+    external_ip = fc.call_action('WANIPConn1', 'GetExternalIPAddress')['NewExternalIPAddress']
 
-print(f"Public IP: {external_ip['NewExternalIPAddress']}")
+    if external_ip != last_external_ip:
+        last_external_ip = external_ip
+        with open(file, 'w', encoding='utf-8') as output:
+            output.write(f"{outputPrefix}{external_ip}")
+
+        print(f"Public IP: {external_ip}")
+
+    time.sleep(intervall)
