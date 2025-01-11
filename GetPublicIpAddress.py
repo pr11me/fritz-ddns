@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 import time
@@ -7,6 +8,9 @@ from fritzconnection import FritzConnection
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+logger.addHandler(console_handler)
 
 lambdaUrl = os.getenv('LAMBDA_FN_URL')
 domain = os.getenv('DOMAIN')
@@ -24,6 +28,6 @@ while True:
         response = requests.get(lambdaUrl, headers={'Content-Type': 'application/json'},
                                 params={'domain': domain, 'secret': secret, 'ip': externalIp})
 
-        logger.info(response.json())
+        logger.info(f"[STATUS {response.status_code}]: {response.content}")
 
     time.sleep(queryIntervalInSeconds)
