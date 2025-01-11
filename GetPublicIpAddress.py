@@ -16,7 +16,7 @@ lastExternalIp = None
 connection = FritzConnection(address=os.getenv('FRITZBOX_ADDRESS', 'fritz.box'))
 
 while True:
-    externalIp = connection.call_action('WANIPConn1', 'GetExternalIPAddress')['NewExternalIPAddress']
+    externalIp = connection.call_action('WANPPPConnection1', 'GetExternalIPAddress')['NewExternalIPAddress']
 
     if externalIp != lastExternalIp:
         lastExternalIp = externalIp
