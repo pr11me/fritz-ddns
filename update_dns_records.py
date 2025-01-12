@@ -24,6 +24,8 @@ while True:
     if external_ip != last_external_ip:
         last_external_ip = external_ip
 
+        # first call responds with 502 Internal Server Error, the second is successful, reason yet unknown
+        requests.get(lambda_url, params={'domain': domain, 'secret': secret, 'ip': external_ip})
         response = requests.get(lambda_url, params={'domain': domain, 'secret': secret, 'ip': external_ip})
 
         logger.info(f"[STATUS {response.status_code}]: {response.content}")
